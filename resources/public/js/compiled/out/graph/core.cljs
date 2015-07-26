@@ -20,7 +20,9 @@
   (map #(hash-map :Id % :Value (rand-int 20)) (take rows (range))))
 
 (defonce app-state (atom {:margin margin
-                          :transitionDuration transitionDuration}))
+                          :transitionDuration transitionDuration
+                          :width width
+                          :height height}))
 
 (om/root
   (fn [data owner]
