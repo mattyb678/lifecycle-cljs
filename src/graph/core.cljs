@@ -7,6 +7,7 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
+(def transitionDuration 2000)
 (def margin {:top 20 :right 20 :bottom 30 :left 40})
 (def width (-> 1000
                (- (:left margin))
@@ -18,7 +19,8 @@
 (defn- generate-data [rows]
   (map #(hash-map :Id % :Value (rand-int 20)) (take rows (range))))
 
-(defonce app-state (atom {:margin margin}))
+(defonce app-state (atom {:margin margin
+                          :transitionDuration transitionDuration}))
 
 (om/root
   (fn [data owner]
@@ -28,8 +30,6 @@
         {:chart-data (generate-data 20)})
       om/IRenderState
       (render-state [this state]
-        (println data)
-        (println {:state state})
         (om/build chart/draw-chart
                         data
                         {:state state}))))
