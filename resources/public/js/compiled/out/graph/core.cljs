@@ -27,6 +27,12 @@
 (om/root
   (fn [data owner]
     (reify
+      om/IDidMount
+      (did-mount [this]
+        (js/setInterval
+         (fn [] (let [new-data (generate-data 20)]
+                  (om/set-state! owner :chart-data new-data)))
+         (* 3 transitionDuration)))
       om/IInitState
       (init-state [this]
         {:chart-data (generate-data 20)})
